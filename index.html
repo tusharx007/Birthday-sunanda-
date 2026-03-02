@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Sunanda ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+height:100vh;
+overflow:hidden;
+background:linear-gradient(to bottom,#0f2027,#203a43,#2c5364);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+font-family:'Poppins',sans-serif;
+}
+
+/* Stars */
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{opacity:0.3;}
+to{opacity:1;}
+}
+
+/* Countdown */
+#countdown{
+font-size:100px;
+font-weight:bold;
+}
+
+/* Gold Name */
+.gold{
+font-family:'Great Vibes',cursive;
+font-size:70px;
+background:linear-gradient(45deg,gold,white,gold);
+-webkit-background-clip:text;
+color:transparent;
+animation: shine 3s infinite linear;
+}
+
+@keyframes shine{
+0%{background-position:0%;}
+100%{background-position:200%;}
+}
+
+.hidden{display:none;}
+
+#gift{
+font-size:90px;
+cursor:pointer;
+animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
+}
+
+img{
+width:220px;
+border-radius:20px;
+margin-top:20px;
+box-shadow:0 0 25px white;
+}
+
+/* Floating hearts */
+.heart{
+position:absolute;
+color:#ff4d6d;
+font-size:20px;
+animation: float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:0;}
+50%{opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* Cute pets */
+.cute{
+position:absolute;
+font-size:40px;
+animation: floatPet 10s linear infinite;
+}
+
+@keyframes floatPet{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
+}
+
+/* Firework */
+.firework{
+position:absolute;
+font-size:40px;
+animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(0);opacity:1;}
+100%{transform:scale(4);opacity:0;}
+}
+
+#message{
+font-size:22px;
+margin-top:20px;
+min-height:60px;
+}
+</style>
+</head>
+<body>
+
+<div id="countdown">3</div>
+
+<div id="main" class="hidden">
+<div class="gold">Happy Birthday Sunanda 💛</div>
+<p style="margin-top:20px;">Click the gift below 🎁</p>
+<div id="gift">🎁</div>
+</div>
+
+<div id="final" class="hidden">
+<div class="gold">Forever Starts With You ❤️</div>
+<div id="message"></div>
+<img src="sunanda.jpg">
+</div>
+
+<audio id="music" src="music.mp3"></audio>
+
+<script>
+
+// Create stars
+for(let i=0;i<100;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*100+"vh";
+star.style.left=Math.random()*100+"vw";
+star.style.animationDuration=(1+Math.random()*3)+"s";
+document.body.appendChild(star);
+}
+
+let count=3;
+let countdown=document.getElementById("countdown");
+let main=document.getElementById("main");
+let final=document.getElementById("final");
+let music=document.getElementById("music");
+
+let timer=setInterval(()=>{
+count--;
+countdown.innerText=count;
+if(count==0){
+clearInterval(timer);
+countdown.classList.add("hidden");
+main.classList.remove("hidden");
+launchFireworks();
+music.play();
+}
+},1000);
+
+// Fireworks
+function launchFireworks(){
+for(let i=0;i<20;i++){
+let fw=document.createElement("div");
+fw.className="firework";
+fw.innerText="✨";
+fw.style.top=Math.random()*80+"vh";
+fw.style.left=Math.random()*100+"vw";
+document.body.appendChild(fw);
+setTimeout(()=>fw.remove(),1000);
+}
+}
+
+// Gift click
+document.getElementById("gift").onclick=function(){
+main.classList.add("hidden");
+final.classList.remove("hidden");
+typeMessage();
+}
+
+// Typewriter effect
+let text="You are my happiness, my smile, my favorite person. May your life be filled with love, success, and endless joy 💖";
+let i=0;
+function typeMessage(){
+if(i<text.length){
+document.getElementById("message").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeMessage,40);
+}
+}
+
+// Floating hearts
+function createHeart(){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerText="💖";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(15+Math.random()*30)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,400);
+
+// Floating pets
+function createPet(){
+let pet=document.createElement("div");
+pet.className="cute";
+pet.innerText=Math.random()>0.5?"🐶":"🐱";
+pet.style.left=Math.random()*100+"vw";
+document.body.appendChild(pet);
+setTimeout(()=>pet.remove(),10000);
+}
+setInterval(createPet,3000);
+
+</script>
+
+</body>
+</html>
